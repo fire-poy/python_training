@@ -11,6 +11,7 @@ my_projects = response.json()
 for project in my_projects:
 	print_color(f"Project name= {project['name']}", "red")
 	# print_color(f"description: {project['description']}", "green")
+    # print(f"Project Name: {project['name']}\nProject Url: {project['http_url_to_repo']}\n")
 
 total_projects = len(my_projects)
 print_color(f"Total number of projects: {total_projects}", "yellow")
