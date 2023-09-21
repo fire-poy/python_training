@@ -9,9 +9,18 @@ response = requests.get("https://api.github.com/users/fire-poy/repos")
 my_projects = response.json()
 # print(my_projects[0])
 for project in my_projects:
-	print_color(f"Project name= {project['name']}", "red")
-	# print_color(f"description: {project['description']}", "green")
-    # print(f"Project Name: {project['name']}\nProject Url: {project['http_url_to_repo']}\n")
+	print_color(f"Project name: {project['name']}", "red")
+	print_color(f"Description:  {project['description']}", "red")
+	print_color(f"Project Url:  {project['html_url']}", "red")
+	print()
+	# print_color(f"Project Name: {project['name']}\nProject Url: {project['html_url']}\n", "blue")
+	# for key, value in project.items():
+		# print(key, value)
+		# print(key)
+	# print()
+
+
+        
 
 total_projects = len(my_projects)
 print_color(f"Total number of projects: {total_projects}", "yellow")

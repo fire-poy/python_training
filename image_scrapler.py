@@ -31,9 +31,9 @@ def download_img(img_link, index):
     try:
         extensions = [".jpeg", ".jpg", ".png", ".gif"]
         extension = ".jpg"
-        for exe in extensions:
-            if img_link.find(exe) > 0:
-                extension = exe
+        for ex in extensions:
+            if img_link.find(ex) > 0:
+                extension = ex
                 break
 
         img_data = rq.get(img_link).content
