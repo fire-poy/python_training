@@ -12,7 +12,7 @@ def getfiles(path):
         if os.path.isdir(abs_path):
             getfiles(abs_path)
         if os.path.isfile(abs_path):
-            f = open(file_name, "r")
+            f = open(file_name, "r", encoding="utf-8")
             if text in f.read():
                 f = 1
                 print(text + " found in ")

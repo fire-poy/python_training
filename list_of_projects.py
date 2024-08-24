@@ -5,7 +5,7 @@ from colors import print_color
 
 # select user
 # if not found print error message
-response = requests.get("https://api.github.com/users/fire-poy/repos")
+response = requests.get("https://api.github.com/users/NeuralNine/repos")
 my_projects = response.json()
 # print(my_projects[0])
 for project in my_projects:
