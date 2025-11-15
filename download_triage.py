@@ -1,12 +1,14 @@
 import os
 import shutil
-os.chdir("C:\Users\Mauro\Downloads")
-#print(os.getcwd())
 
-#check number of files in  directory
+# Ruta correcta para acceder a Windows desde WSL
+os.chdir("/mnt/c/Users/Mauro/Desktop/triageTest")
+print(os.getcwd())
+
+# Check number of files in directory
 files = os.listdir()
 
-#list of extension (You can add more if you want)
+# List of extensions (You can add more if you want)
 extentions = {
     "images": [".jpg", ".png", ".jpeg", ".gif"],
     "videos": [".mp4", ".mkv"],
@@ -16,31 +18,49 @@ extentions = {
     "setup": [".msi", ".exe"],
     "programs": [".py", ".c", ".cpp", ".php", ".C", ".CPP"],
     "design": [".xd", ".psd"]
-
-
 }
 
+# Crear directorios de destino si no existen
+base_dir = "./folder-sorting"
+if not os.path.exists(base_dir):
+    os.makedirs(base_dir)
 
-#sort to specific folder depend on extenstions
+for category in extentions.keys():
+    category_dir = os.path.join(base_dir, category)
+    if not os.path.exists(category_dir):
+        os.makedirs(category_dir)
+
+# Crear directorio "others" también
+others_dir = os.path.join(base_dir, "others")
+if not os.path.exists(others_dir):
+    os.makedirs(others_dir)
+
+# Sort to specific folder depend on extensions
 def sorting(file):
     keys = list(extentions.keys())
     for key in keys:
         for ext in extentions[key]:
-            # print(ext)
-            if file.endswith(ext):
+            if file.lower().endswith(ext.lower()):  # Case insensitive
                 return key
+    return None
 
-
-#iterat through each file
+# Iterate through each file
 for file in files:
-    dist = sorting(file)
-    if dist:
-        try:
-            shutil.move(file, "../download-sorting/" + dist)
-        except:
-            print(file + " is already exist")
-    else:
-        try:
-            shutil.move(file, "../download-sorting/others")
-        except:
-            print(file + " is already exist")
+    if os.path.isfile(file):  # Solo procesar archivos, no directorios
+        dist = sorting(file)
+        if dist:
+            try:
+                shutil.move(file, os.path.join(base_dir, dist, file))
+                print(f"Moved {file} to {dist}")
+            except FileExistsError:
+                print(f"{file} already exists in {dist}")
+            except Exception as e:
+                print(f"Error moving {file}: {e}")
+        else:
+            try:
+                shutil.move(file, os.path.join(base_dir, "others", file))
+                print(f"Moved {file} to others")
+            except FileExistsError:
+                print(f"{file} already exists in others")
+            except Exception as e:
+                print(f"Error moving {file}: {e}")
