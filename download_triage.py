@@ -20,21 +20,6 @@ extentions = {
     "design": [".xd", ".psd"]
 }
 
-# Crear directorios de destino si no existen
-base_dir = "./folder-sorting"
-if not os.path.exists(base_dir):
-    os.makedirs(base_dir)
-
-for category in extentions.keys():
-    category_dir = os.path.join(base_dir, category)
-    if not os.path.exists(category_dir):
-        os.makedirs(category_dir)
-
-# Crear directorio "others" también
-others_dir = os.path.join(base_dir, "others")
-if not os.path.exists(others_dir):
-    os.makedirs(others_dir)
-
 # Sort to specific folder depend on extensions
 def sorting(file):
     keys = list(extentions.keys())
@@ -44,7 +29,36 @@ def sorting(file):
                 return key
     return None
 
-# Iterate through each file
+# Crear directorio base si no existe
+base_dir = "./folder-sorting"
+if not os.path.exists(base_dir):
+    os.makedirs(base_dir)
+
+# Analizar qué categorías van a ser necesarias
+categories_needed = set()
+others_needed = False
+
+for file in files:
+    if os.path.isfile(file):  # Solo procesar archivos, no directorios
+        category = sorting(file)
+        if category:
+            categories_needed.add(category)
+        else:
+            others_needed = True
+
+# Crear solo las carpetas de categorías que van a ser utilizadas
+for category in categories_needed:
+    category_dir = os.path.join(base_dir, category)
+    if not os.path.exists(category_dir):
+        os.makedirs(category_dir)
+
+# Crear directorio "others" solo si es necesario
+if others_needed:
+    others_dir = os.path.join(base_dir, "others")
+    if not os.path.exists(others_dir):
+        os.makedirs(others_dir)
+
+# Iterate through each file and move them
 for file in files:
     if os.path.isfile(file):  # Solo procesar archivos, no directorios
         dist = sorting(file)
