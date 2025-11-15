@@ -2,7 +2,8 @@ import os
 import shutil
 
 # Ruta correcta para acceder a Windows desde WSL
-os.chdir("/mnt/c/Users/Mauro/Desktop/triageTest")
+# os.chdir("/mnt/c/Users/Mauro/Downloads")
+os.chdir("/mnt/c/Users/Mauro/Desktop")
 print(os.getcwd())
 
 # Check number of files in directory
@@ -43,7 +44,7 @@ def sorting(file):
     return None
 
 # Crear directorio base si no existe
-base_dir = "./folder-sorting"
+base_dir = "."
 if not os.path.exists(base_dir):
     os.makedirs(base_dir)
 
