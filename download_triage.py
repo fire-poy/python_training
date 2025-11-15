@@ -8,6 +8,19 @@ print(os.getcwd())
 # Check number of files in directory
 files = os.listdir()
 
+# Imprimir la lista completa de archivos antes del procesamiento
+print("\n" + "="*50)
+print("ARCHIVOS ENCONTRADOS:")
+print("="*50)
+for i, file in enumerate(files, 1):
+    if os.path.isfile(file):
+        print(f"{i:2d}. {file}")
+    else:
+        print(f"{i:2d}. {file} (directorio)")
+print("="*50)
+print(f"Total de elementos: {len(files)}")
+print("="*50 + "\n")
+
 # List of extensions (You can add more if you want)
 extentions = {
     "images": [".jpg", ".png", ".jpeg", ".gif"],
